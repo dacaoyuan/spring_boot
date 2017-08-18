@@ -1,0 +1,12 @@
+#生产环境配置
+server:
+ port: 8081
+ context-path: /girl
+
+girl:
+ cubSize: F
+ age: 18
+
+#content: "cubsize: ${cubSize},age: ${age}}"
+
+
