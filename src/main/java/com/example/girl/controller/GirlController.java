@@ -3,8 +3,10 @@ package com.example.girl.controller;
 
 import com.example.girl.aspect.HttpAspect;
 import com.example.girl.domain.Girl;
+import com.example.girl.domain.Result;
 import com.example.girl.service.GirlService;
 import com.example.girl.repository.GirlRepository;
+import com.example.girl.utils.ResultUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,12 @@ public class GirlController {
     }
 
     @PostMapping(value = "/girls")
-    public Girl girlAdd(@Valid Girl girls, BindingResult bindingResult) {//
+    public Result<Girl> girlAdd(@Valid Girl girls, BindingResult bindingResult) {//
+        Result<Girl> result;
         if (bindingResult.hasErrors()) {
-            System.out.println("GirlController.girlAdd  " + bindingResult.getFieldError().getDefaultMessage());
+            //System.out.println("GirlController.girlAdd  " + bindingResult.getFieldError().getDefaultMessage());
+            result = ResultUtils.error(1, bindingResult.getFieldError().getDefaultMessage());
+
             return null;
         }
 
@@ -47,7 +52,8 @@ public class GirlController {
         girl.setAge(girls.getAge());
         girl.setCubSize(girls.getCubSize());
 
-        return girlRepository.save(girl);
+        result = ResultUtils.success(girl);
+        return result;
     }
 
     /*@PostMapping(value = "/girls")
@@ -97,4 +103,12 @@ public class GirlController {
     public void girlTwo() {
         service.insertTwo();
     }
+
+
+    @GetMapping(value = "/girls/getAge/{id}")
+    public void getAge(@PathVariable("id") Integer id) throws Exception {
+        service.getAge(id);
+    }
+
+
 }
