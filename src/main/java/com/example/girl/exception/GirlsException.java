@@ -1,12 +1,17 @@
 package com.example.girl.exception;
 
+import com.example.girl.enums.ResultEnum;
+
 public class GirlsException extends RuntimeException {
 
     private Integer code;
 
-    public GirlsException(Integer code, String msg) {
-        super(msg);
-        this.code = code;
+    //public ResultEnum resultEnum;
+
+    public GirlsException(ResultEnum resultEnum) {
+        super(resultEnum.getMsg());
+        code = resultEnum.getCode();
+        //this.resultEnum = resultEnum;
     }
 
     public Integer getCode() {

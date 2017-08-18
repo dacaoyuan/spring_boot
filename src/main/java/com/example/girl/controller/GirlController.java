@@ -1,9 +1,9 @@
 package com.example.girl.controller;
 
 
-import com.example.girl.aspect.HttpAspect;
 import com.example.girl.domain.Girl;
 import com.example.girl.domain.Result;
+import com.example.girl.enums.ResultEnum;
 import com.example.girl.service.GirlService;
 import com.example.girl.repository.GirlRepository;
 import com.example.girl.utils.ResultUtils;
@@ -40,7 +40,7 @@ public class GirlController {
             //System.out.println("GirlController.girlAdd  " + bindingResult.getFieldError().getDefaultMessage());
             result = ResultUtils.error(1, bindingResult.getFieldError().getDefaultMessage());
 
-            return null;
+            return result;
         }
 
         /*if (!(girls.getAge() >= 18)) {
@@ -51,8 +51,11 @@ public class GirlController {
         Girl girl = new Girl();
         girl.setAge(girls.getAge());
         girl.setCubSize(girls.getCubSize());
+        girlRepository.save(girl);
 
-        result = ResultUtils.success(girl);
+        result = ResultUtils.success(girl, ResultEnum.SUCCESS);
+
+
         return result;
     }
 

@@ -1,6 +1,7 @@
 package com.example.girl.handle;
 
 import com.example.girl.domain.Result;
+import com.example.girl.enums.ResultEnum;
 import com.example.girl.exception.GirlsException;
 import com.example.girl.utils.ResultUtils;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class ExceptionHandle {
             return ResultUtils.error(girlsException.getCode(), girlsException.getMessage());
         } else {
             LOGGER.error("系统异常：{}", e);
-            return ResultUtils.error(-1, "未知错误");
+            return ResultUtils.error(ResultEnum.UNKNOWN_ERROR);
         }
 
     }
